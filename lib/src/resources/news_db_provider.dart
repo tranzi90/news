@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:news/src/models/item_model.dart';
+import 'package:news/src/resources/repository.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class NewsDbProvider {
+class NewsDbProvider implements Cache {
   late Database db;
 
   void init() async {
@@ -52,6 +53,7 @@ class NewsDbProvider {
     return null;
   }
 
+  @override
   Future<int> addItem(ItemModel item) {
     return db.insert("Items", item.toMap());
   }
